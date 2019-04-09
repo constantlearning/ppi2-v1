@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -38,11 +39,13 @@ public class Locacao {
     @ManyToOne
     private Funcionario funcionarioEntrega;
 
-    @ManyToMany(mappedBy = "locacao")
-    private List<Avaria> avarias;
+    @JsonIgnore
+    @ManyToMany
+    private List<Avaria> avarias = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "locacao")
-    private List<Multa> multas;
+    @JsonIgnore
+    @ManyToMany
+    private List<Multa> multas = new ArrayList<>();
 
     @JsonIgnore
     public boolean isNew() {

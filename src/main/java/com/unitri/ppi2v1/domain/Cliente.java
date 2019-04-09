@@ -27,7 +27,7 @@ public class Cliente {
     private String cpf;
 
     @OneToMany(mappedBy = "cliente")
-    private List<Locacao> locacoes;
+    private List<Locacao> locacaos;
 
     @JsonIgnore
     public boolean isNew() {

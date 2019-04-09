@@ -8,12 +8,13 @@ import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
 
-@Entity
+@Entity(name = "multa")
 public class Multa {
 
     @Id
@@ -27,8 +28,9 @@ public class Multa {
     @NotNull(message = "multa.valor.mandatory")
     private Double valor;
 
-    @ManyToMany
-    private List<Locacao> locacoes;
+    @JsonIgnore
+    @ManyToMany(mappedBy = "multas")
+    private List<Locacao> locacaos = new ArrayList<>();
 
     @JsonIgnore
     public boolean isNew() {

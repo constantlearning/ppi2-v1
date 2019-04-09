@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -27,8 +28,9 @@ public class Avaria {
     @NotNull(message = "avaria.valor.mandatory")
     private Double valor;
 
-    @ManyToMany(mappedBy = "avaria")
-    private List<Locacao> locacoes;
+    @JsonIgnore
+    @ManyToMany(mappedBy = "avarias")
+    private List<Locacao> locacaos = new ArrayList<>();
 
     @JsonIgnore
     public boolean isNew() {

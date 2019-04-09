@@ -24,8 +24,11 @@ public class Funcionario {
     @NotBlank(message = "funcionario.nome.mandatory")
     private String nome;
 
-    @OneToMany(mappedBy = "funcionario")
-    private List<Locacao> locacoes;
+    @OneToMany(mappedBy = "funcionarioRetirada")
+    private List<Locacao> locacaoRetirada;
+
+    @OneToMany(mappedBy = "funcionarioEntrega")
+    private List<Locacao> locacaosEntrega;
 
     @JsonIgnore
     public boolean isNew() {
