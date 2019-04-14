@@ -1,0 +1,5 @@
+== Cliente que mais loca por mês.
+http://localhost:8080/clientes/locacoes/{mes}
+
+== Buscar locações ordenadas pelo número de multas
+http://localhost:8080/locacoes/multas?ordenacao=ASC/DESC
