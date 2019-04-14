@@ -4,10 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -21,10 +22,6 @@ public class Categoria {
 
     @NotBlank(message = "categoria.descricao.mandatory")
     private String descricao;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "categoria")
-    private List<Veiculo> veiculos = new ArrayList<>();
 
     @JsonIgnore
     public boolean isNew() {

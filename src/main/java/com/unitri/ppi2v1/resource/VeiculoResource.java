@@ -48,4 +48,10 @@ public class VeiculoResource {
     public void delete(@PathVariable("id") Long id) {
         this.veiculoService.deleteById(id);
     }
+
+    @GetMapping("/categoria/{categoriaId}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Veiculo> findByCategoriaId(@PathVariable("categoriaId") Long categoriaId) {
+        return this.veiculoService.findByCategoriaId(categoriaId);
+    }
 }

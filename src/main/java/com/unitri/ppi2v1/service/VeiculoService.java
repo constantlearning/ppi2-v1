@@ -1,10 +1,10 @@
 package com.unitri.ppi2v1.service;
 
+import com.unitri.ppi2v1.domain.Categoria;
 import com.unitri.ppi2v1.domain.Veiculo;
 import com.unitri.ppi2v1.repository.VeiculoRepository;
 import com.unitri.ppi2v1.service.exception.VeiculoAlreadyExistsException;
 import com.unitri.ppi2v1.service.exception.VeiculoNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,10 +14,11 @@ import java.util.Optional;
 public class VeiculoService {
 
     private final VeiculoRepository veiculoRepository;
+    private final CategoriaService categoriaService;
 
-    @Autowired
-    public VeiculoService(VeiculoRepository veiculoRepository) {
+    public VeiculoService(VeiculoRepository veiculoRepository, CategoriaService categoriaService) {
         this.veiculoRepository = veiculoRepository;
+        this.categoriaService = categoriaService;
     }
 
     public Veiculo save(Veiculo veiculo) {
@@ -47,6 +48,11 @@ public class VeiculoService {
     }
 
     private boolean isUpdatingToADifferentVeiculo(Veiculo veiculo, Veiculo byMarcaAndModelo) {
-        return veiculo.isUpdate() && veiculo.getId() != byMarcaAndModelo.getId();
+        return veiculo.isUpdate() && !veiculo.getId().equals(byMarcaAndModelo.getId());
+    }
+
+    public List<Veiculo> findByCategoriaId(Long categoriaId) {
+        Categoria categoria = this.categoriaService.findCategoriaById(categoriaId);
+        return this.veiculoRepository.findAllByCategoria(categoria);
     }
 }

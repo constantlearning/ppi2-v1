@@ -4,12 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -27,10 +28,6 @@ public class Multa {
     @DecimalMin(message = "multa.valor.minValue", value = "0")
     @NotNull(message = "multa.valor.mandatory")
     private Double valor;
-
-    @JsonIgnore
-    @ManyToMany(mappedBy = "multas")
-    private List<Locacao> locacaos = new ArrayList<>();
 
     @JsonIgnore
     public boolean isNew() {

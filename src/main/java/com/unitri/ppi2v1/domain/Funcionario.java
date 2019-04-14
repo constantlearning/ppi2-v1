@@ -4,10 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -24,14 +25,6 @@ public class Funcionario {
 
     @NotBlank(message = "funcionario.nome.mandatory")
     private String nome;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "funcionarioRetirada")
-    private List<Locacao> locacaoRetirada = new ArrayList<>();
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "funcionarioEntrega")
-    private List<Locacao> locacaosEntrega = new ArrayList<>();
 
     @JsonIgnore
     public boolean isNew() {

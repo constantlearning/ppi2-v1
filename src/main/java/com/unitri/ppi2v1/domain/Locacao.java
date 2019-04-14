@@ -39,11 +39,9 @@ public class Locacao {
     @ManyToOne
     private Funcionario funcionarioEntrega;
 
-    @JsonIgnore
     @ManyToMany
     private List<Avaria> avarias = new ArrayList<>();
 
-    @JsonIgnore
     @ManyToMany
     private List<Multa> multas = new ArrayList<>();
 
