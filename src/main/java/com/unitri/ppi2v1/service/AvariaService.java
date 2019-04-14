@@ -20,7 +20,7 @@ public class AvariaService {
         this.avariaRepository = avariaRepository;
     }
 
-    public Avaria createAvaria(Avaria avaria) {
+    public Avaria save(Avaria avaria) {
         verifyIfAvariaExists(avaria);
         return this.avariaRepository.save(avaria);
     }

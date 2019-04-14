@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -29,8 +30,9 @@ public class Veiculo {
     @ManyToOne
     private Categoria categoria;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "veiculo")
-    private List<Locacao> locacaos;
+    private List<Locacao> locacaos = new ArrayList<>();
 
     @JsonIgnore
     public boolean isNew() {

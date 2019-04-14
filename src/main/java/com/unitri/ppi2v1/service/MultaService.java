@@ -25,7 +25,7 @@ public class MultaService {
         return this.multaRepository.save(multa);
     }
 
-    public void delete(final Long id) {
+    public void deleteById(final Long id) {
         Optional<Multa> byId = this.multaRepository.findById(id);
         Multa multaToDelete = byId.orElseThrow(MultaNotFoundException::new);
         this.multaRepository.delete(multaToDelete);

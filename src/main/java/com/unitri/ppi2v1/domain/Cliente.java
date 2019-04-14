@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -26,14 +27,16 @@ public class Cliente {
     @CPF(message = "cliente.cpf.invalid")
     private String cpf;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "cliente")
-    private List<Locacao> locacaos;
+    private List<Locacao> locacaos = new ArrayList<>();
 
     @JsonIgnore
     public boolean isNew() {
         return this.id == null;
     }
 
+    @JsonIgnore
     public boolean isUpdate() {
         return this.id != null;
     }

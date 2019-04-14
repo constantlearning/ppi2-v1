@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -21,8 +22,9 @@ public class Categoria {
     @NotBlank(message = "categoria.descricao.mandatory")
     private String descricao;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "categoria")
-    private List<Veiculo> veiculos;
+    private List<Veiculo> veiculos = new ArrayList<>();
 
     @JsonIgnore
     public boolean isNew() {

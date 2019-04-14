@@ -38,7 +38,7 @@ public class LocacaoService {
     }
 
     private void verifyIfLocacaoExists(final Locacao locacao) {
-        Optional<Locacao> locacaoByCliente = this.locacaoRepository.findByCliente(locacao.getCliente());
+        Optional<Locacao> locacaoByCliente = this.locacaoRepository.findByClienteAndData(locacao.getCliente(), locacao.getData());
         if (locacaoByCliente.isPresent() && (locacao.isNew() || isUpdatingToADiffentLocacao(locacao, locacaoByCliente.get()))) {
             throw new LocacaoAlreadyExistException();
         }

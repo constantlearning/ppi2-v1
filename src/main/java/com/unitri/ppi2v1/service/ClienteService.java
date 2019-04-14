@@ -18,7 +18,7 @@ public class ClienteService {
         this.clienteRepository = clienteRepository;
     }
 
-    public Cliente createCliente(Cliente cliente) {
+    public Cliente save(Cliente cliente) {
         verifyIfClienteExists(cliente);
         return this.clienteRepository.save(cliente);
     }

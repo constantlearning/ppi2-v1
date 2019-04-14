@@ -20,22 +20,22 @@ public class CategoriaService {
         this.categoriaRepository = categoriaRepository;
     }
 
-    private Categoria createCategoria(Categoria categoria) {
+    public Categoria save(Categoria categoria) {
         verifyIfCategoriaExists(categoria);
         return this.categoriaRepository.save(categoria);
     }
 
-    private void deleteCategoriaById(Long id) {
+    public void deleteCategoriaById(Long id) {
         Optional<Categoria> categoriaById = this.categoriaRepository.findById(id);
         Categoria categoriaToDelete = categoriaById.orElseThrow(CategoriaNotFoundException::new);
         this.categoriaRepository.delete(categoriaToDelete);
     }
 
-    private Categoria findCategoriaById(Long id) {
+    public Categoria findCategoriaById(Long id) {
         return this.categoriaRepository.findById(id).orElseThrow(CategoriaNotFoundException::new);
     }
 
-    private List<Categoria> findAllCategorias() {
+    public List<Categoria> findAllCategorias() {
         return this.categoriaRepository.findAll();
     }
 

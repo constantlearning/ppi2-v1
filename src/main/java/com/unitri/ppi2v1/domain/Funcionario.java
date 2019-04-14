@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -24,11 +25,13 @@ public class Funcionario {
     @NotBlank(message = "funcionario.nome.mandatory")
     private String nome;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "funcionarioRetirada")
-    private List<Locacao> locacaoRetirada;
+    private List<Locacao> locacaoRetirada = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "funcionarioEntrega")
-    private List<Locacao> locacaosEntrega;
+    private List<Locacao> locacaosEntrega = new ArrayList<>();
 
     @JsonIgnore
     public boolean isNew() {
