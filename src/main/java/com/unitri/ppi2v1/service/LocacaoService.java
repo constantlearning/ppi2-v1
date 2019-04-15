@@ -6,6 +6,8 @@ import com.unitri.ppi2v1.service.exception.LocacaoAlreadyExistException;
 import com.unitri.ppi2v1.service.exception.LocacaoNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,5 +48,30 @@ public class LocacaoService {
 
     private boolean isUpdatingToADiffentLocacao(Locacao locacao, Locacao locacaoByCliente) {
         return locacao.isUpdate() && !locacaoByCliente.getId().equals(locacao.getId());
+    }
+
+    public List<Locacao> findLocacoesOrderByParameter(String parameter) {
+
+        List<Object[]> byMultasOrderedByParameter;
+
+        if (parameter.equals("ASC")) {
+            byMultasOrderedByParameter = this.locacaoRepository.findByMultasOrderedByParameterAsc(parameter);
+        } else {
+            byMultasOrderedByParameter = this.locacaoRepository.findByMultasOrderedByParameterDesc(parameter);
+        }
+
+        if (byMultasOrderedByParameter.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        List<Locacao> locacoes = new ArrayList<>();
+
+        for (Object[] result : byMultasOrderedByParameter) {
+            Long locacaoId = Long.valueOf(result[0].toString());
+            Optional<Locacao> byId = this.locacaoRepository.findById(locacaoId);
+            byId.ifPresent(locacoes::add);
+        }
+
+        return locacoes;
     }
 }

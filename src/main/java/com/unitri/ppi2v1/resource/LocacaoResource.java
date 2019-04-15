@@ -14,6 +14,11 @@ public class LocacaoResource {
 
     private final LocacaoService locacaoService;
 
+    public enum Ordenacao {
+        ASC,
+        DESC
+    }
+
     public LocacaoResource(LocacaoService locacaoService) {
         this.locacaoService = locacaoService;
     }
@@ -47,5 +52,12 @@ public class LocacaoResource {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") Long id) {
         this.locacaoService.deleteById(id);
+    }
+
+    @GetMapping("/multas")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Locacao> locacoesOrdenadasPeloNumeroDeMultas(@RequestParam("ordenacao") Ordenacao ordenacao) {
+        String parameter = ordenacao.name();
+        return this.locacaoService.findLocacoesOrderByParameter(parameter);
     }
 }
