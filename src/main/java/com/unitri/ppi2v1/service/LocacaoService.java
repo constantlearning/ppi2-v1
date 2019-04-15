@@ -4,6 +4,9 @@ import com.unitri.ppi2v1.domain.Locacao;
 import com.unitri.ppi2v1.repository.LocacaoRepository;
 import com.unitri.ppi2v1.service.exception.LocacaoAlreadyExistException;
 import com.unitri.ppi2v1.service.exception.LocacaoNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -35,8 +38,9 @@ public class LocacaoService {
         return this.locacaoRepository.findById(id).orElseThrow(LocacaoNotFoundException::new);
     }
 
-    public List<Locacao> findAll() {
-        return this.locacaoRepository.findAll();
+    public Page<Locacao> findAll(int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return this.locacaoRepository.findAll(pageRequest);
     }
 
     private void verifyIfLocacaoExists(final Locacao locacao) {

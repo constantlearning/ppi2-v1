@@ -2,6 +2,7 @@ package com.unitri.ppi2v1.resource;
 
 import com.unitri.ppi2v1.domain.Locacao;
 import com.unitri.ppi2v1.service.LocacaoService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,8 +26,9 @@ public class LocacaoResource {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<Locacao> findAll() {
-        return this.locacaoService.findAll();
+    public Page<Locacao> findAll(@RequestParam(value = "page", required = false, defaultValue = "0") int page,
+                                 @RequestParam(value = "size", required = false, defaultValue = "2") int size) {
+        return this.locacaoService.findAll(page, size);
     }
 
     @GetMapping("/{id}")
