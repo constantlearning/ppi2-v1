@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.util.List;
 
 @RestController
@@ -47,5 +49,10 @@ public class ClienteResource {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") Long id) {
         this.clienteService.deleteById(id);
+    }
+
+    @GetMapping("/locacoes/{month}")
+    public Cliente maisLocaPorMes(@PathVariable("month") @Min(value = 1) @Max(value = 12) Long month) {
+        return this.clienteService.findAllThatMostHaveRentByMonth(month);
     }
 }

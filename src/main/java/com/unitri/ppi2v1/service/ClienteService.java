@@ -4,6 +4,7 @@ import com.unitri.ppi2v1.domain.Cliente;
 import com.unitri.ppi2v1.repository.ClienteRepository;
 import com.unitri.ppi2v1.service.exception.ClienteAlreadyExistsException;
 import com.unitri.ppi2v1.service.exception.ClienteNotFoundException;
+import com.unitri.ppi2v1.service.exception.LocacaoNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,5 +49,16 @@ public class ClienteService {
         return cliente.isUpdate() && !cliente.getId().equals(byCpf.getId());
     }
 
+    public Cliente findAllThatMostHaveRentByMonth(Long month) {
 
+        List<Object[]> allThatMostHaveRentByMonth = this.clienteRepository.findAllThatMostHaveRentByMonth(month);
+
+        if (allThatMostHaveRentByMonth.isEmpty()) {
+            throw new LocacaoNotFoundException();
+        }
+
+        Long clientId = Long.valueOf(allThatMostHaveRentByMonth.get(0)[0].toString());
+
+        return this.clienteRepository.findById(clientId).get();
+    }
 }
