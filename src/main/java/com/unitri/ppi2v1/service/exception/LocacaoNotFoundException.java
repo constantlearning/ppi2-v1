@@ -5,6 +5,6 @@ import org.springframework.http.HttpStatus;
 public class LocacaoNotFoundException extends BusinessException {
 
     public LocacaoNotFoundException() {
-        super("locacao.notFouund", HttpStatus.NOT_FOUND);
+        super("locacao.notFound", HttpStatus.NOT_FOUND);
     }
 }

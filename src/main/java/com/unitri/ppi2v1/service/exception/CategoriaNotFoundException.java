@@ -5,6 +5,6 @@ import org.springframework.http.HttpStatus;
 public class CategoriaNotFoundException extends BusinessException {
 
     public CategoriaNotFoundException() {
-        super("cateogia.notFound", HttpStatus.NOT_FOUND);
+        super("categoria.notFound", HttpStatus.NOT_FOUND);
     }
 }
