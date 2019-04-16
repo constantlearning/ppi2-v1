@@ -61,4 +61,8 @@ public class ClienteService {
 
         return this.clienteRepository.findById(clientId).get();
     }
+
+    public Cliente findByCpf(String cpf) {
+        return this.clienteRepository.findByCpf(cpf).orElseThrow(ClienteNotFoundException::new);
+    }
 }
