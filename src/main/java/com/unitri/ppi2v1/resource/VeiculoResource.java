@@ -1,5 +1,6 @@
 package com.unitri.ppi2v1.resource;
 
+import com.unitri.ppi2v1.domain.Locacao;
 import com.unitri.ppi2v1.domain.Veiculo;
 import com.unitri.ppi2v1.service.VeiculoService;
 import org.springframework.http.HttpStatus;
@@ -53,5 +54,11 @@ public class VeiculoResource {
     @ResponseStatus(HttpStatus.OK)
     public List<Veiculo> findByCategoriaId(@PathVariable("categoriaId") Long categoriaId) {
         return this.veiculoService.findByCategoriaId(categoriaId);
+    }
+
+    @GetMapping("/{id}/locacoes")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Locacao> findVehicleLocations(@PathVariable("id") Long id) {
+        return this.veiculoService.findVehicleLocations(id);
     }
 }

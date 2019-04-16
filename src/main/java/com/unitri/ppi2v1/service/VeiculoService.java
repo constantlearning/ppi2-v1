@@ -1,12 +1,15 @@
 package com.unitri.ppi2v1.service;
 
 import com.unitri.ppi2v1.domain.Categoria;
+import com.unitri.ppi2v1.domain.Locacao;
 import com.unitri.ppi2v1.domain.Veiculo;
+import com.unitri.ppi2v1.repository.LocacaoRepository;
 import com.unitri.ppi2v1.repository.VeiculoRepository;
 import com.unitri.ppi2v1.service.exception.VeiculoAlreadyExistsException;
 import com.unitri.ppi2v1.service.exception.VeiculoNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,10 +18,12 @@ public class VeiculoService {
 
     private final VeiculoRepository veiculoRepository;
     private final CategoriaService categoriaService;
+    private final LocacaoRepository locacaoRepository;
 
-    public VeiculoService(VeiculoRepository veiculoRepository, CategoriaService categoriaService) {
+    public VeiculoService(VeiculoRepository veiculoRepository, CategoriaService categoriaService, LocacaoRepository locacaoRepository) {
         this.veiculoRepository = veiculoRepository;
         this.categoriaService = categoriaService;
+        this.locacaoRepository = locacaoRepository;
     }
 
     public Veiculo save(Veiculo veiculo) {
@@ -54,5 +59,20 @@ public class VeiculoService {
     public List<Veiculo> findByCategoriaId(Long categoriaId) {
         Categoria categoria = this.categoriaService.findCategoriaById(categoriaId);
         return this.veiculoRepository.findAllByCategoria(categoria);
+    }
+
+    public List<Locacao> findVehicleLocations(Long vehicleId) {
+
+        List<Object[]> locationsIds = this.veiculoRepository.findLocationByVehicle(vehicleId);
+
+        List<Locacao> locacoes = new ArrayList<>();
+
+        for (Object[] result : locationsIds) {
+            Long locacaoId = Long.valueOf(result[0].toString());
+            Optional<Locacao> byId = this.locacaoRepository.findById(locacaoId);
+            byId.ifPresent(locacoes::add);
+        }
+
+        return locacoes;
     }
 }
