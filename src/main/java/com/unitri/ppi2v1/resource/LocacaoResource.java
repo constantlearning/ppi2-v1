@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.util.List;
 
 @RestController
@@ -61,5 +63,11 @@ public class LocacaoResource {
     public List<Locacao> locacoesOrdenadasPeloNumeroDeMultas(@RequestParam("ordenacao") Ordenacao ordenacao) {
         String parameter = ordenacao.name();
         return this.locacaoService.findLocacoesOrderByParameter(parameter);
+    }
+
+    @GetMapping("/month/{month}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Locacao> findByMonth(@PathVariable("month") @Min(value = 1) @Max(value = 12) Long month) {
+        return this.locacaoService.findLocationsByMonth(month);
     }
 }

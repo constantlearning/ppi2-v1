@@ -35,4 +35,10 @@ public interface LocacaoRepository extends JpaRepository<Locacao, Long> {
             nativeQuery = true)
     List<Object[]> findByMultasOrderedByParameterAsc(String parameter);
 
+    @Query(value =
+            "SELECT loc.id " +
+                    "FROM locacao loc " +
+                    "WHERE extract(month from loc.data) = ?1",
+            nativeQuery = true)
+    List<Object[]> findByMonth(Long month);
 }

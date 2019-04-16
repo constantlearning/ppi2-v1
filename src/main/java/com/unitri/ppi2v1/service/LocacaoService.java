@@ -6,7 +6,6 @@ import com.unitri.ppi2v1.service.exception.LocacaoAlreadyExistException;
 import com.unitri.ppi2v1.service.exception.LocacaoNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -68,6 +67,10 @@ public class LocacaoService {
             return Collections.emptyList();
         }
 
+        return mapLocationsByIds(byMultasOrderedByParameter);
+    }
+
+    private List<Locacao> mapLocationsByIds(List<Object[]> byMultasOrderedByParameter) {
         List<Locacao> locacoes = new ArrayList<>();
 
         for (Object[] result : byMultasOrderedByParameter) {
@@ -77,5 +80,10 @@ public class LocacaoService {
         }
 
         return locacoes;
+    }
+
+    public List<Locacao> findLocationsByMonth(Long month) {
+        List<Object[]> result = this.locacaoRepository.findByMonth(month);
+        return mapLocationsByIds(result);
     }
 }
