@@ -70,10 +70,10 @@ public class LocacaoService {
         return mapLocationsByIds(byMultasOrderedByParameter);
     }
 
-    private List<Locacao> mapLocationsByIds(List<Object[]> byMultasOrderedByParameter) {
+    public List<Locacao> mapLocationsByIds(List<Object[]> ids) {
         List<Locacao> locacoes = new ArrayList<>();
 
-        for (Object[] result : byMultasOrderedByParameter) {
+        for (Object[] result : ids) {
             Long locacaoId = Long.valueOf(result[0].toString());
             Optional<Locacao> byId = this.locacaoRepository.findById(locacaoId);
             byId.ifPresent(locacoes::add);
